@@ -1,4 +1,4 @@
-import streamlitas st
+import streamlits st
 
 class MultiApp:
     def __init__(self):
