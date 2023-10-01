@@ -6,6 +6,7 @@ from apps import all_songs
 app = MultiApp() 
 
 app.add_app("All_songs",all_songs.app)
+app.add_app("Add_songs",add_songs.app)
 
 #app.add_app("Home", home.app)
 #app.add_app("Data Stats", data_stats.app) 
