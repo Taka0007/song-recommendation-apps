@@ -8,16 +8,15 @@ import requests
 
 
 def app():
-
   # GitHubのJSONファイルのURL (rawファイルを指定)
-    github_url = "https://raw.githubusercontent.com/Taka0007/song-recommendation-apps/main/data/songs.json"
+  github_url = "https://raw.githubusercontent.com/Taka0007/song-recommendation-apps/main/data/songs.json"
 
-    # JSONデータをGitHubから読み込む
-    response = requests.get(github_url)
-    if response.status_code == 200:
-        karaoke_data = json.loads(response.text)
-    else:
-        st.error("JSONデータを読み込めません。GitHub URLを確認してください.")
+  # JSONデータをGitHubから読み込む
+  response = requests.get(github_url)
+  if response.status_code == 200:
+    karaoke_data = json.loads(response.text)
+  else:
+    st.error("JSONデータを読み込めません。GitHub URLを確認してください.")
   
   st.title("カラオケ曲追加")
 
