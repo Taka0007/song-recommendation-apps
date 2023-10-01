@@ -1,7 +1,9 @@
 import streamlit as st
 from multiapp import MultiApp
 #from apps import home, data_stats
-from apps import all_songs
+
+# apps配下のディレクトリにアプリを追加した際には、ここのimportに追加をしないとエラーを吐く
+from apps import all_songs,add_songs
 
 app = MultiApp() 
 
