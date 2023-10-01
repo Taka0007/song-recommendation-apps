@@ -1,0 +1,28 @@
+{
+  "songs": [
+    {
+      "title": "曲名1",
+      "artist": "アーティスト1",
+      "genre": "ジャンル1",
+      "rating": 4.5
+    },
+    {
+      "title": "曲名2",
+      "artist": "アーティスト2",
+      "genre": "ジャンル2",
+      "rating": 4.0
+    },
+    {
+      "title": "曲名3",
+      "artist": "アーティスト3",
+      "genre": "ジャンル1",
+      "rating": 4.2
+    },
+    {
+      "title": "曲名4",
+      "artist": "アーティスト4",
+      "genre": "ジャンル2",
+      "rating": 3.8
+    }
+  ]
+}
