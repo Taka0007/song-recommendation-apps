@@ -29,10 +29,10 @@ def app():
   # 追加ボタンを押して新しい曲を追加
   if st.button("曲を追加"):
       new_song = {
-          "title": new_title,
-          "artist": new_artist,
-          "genre": new_genre,
-          "rating": new_rating
+        "title": new_title,
+        "artist": new_artist,
+        "genre": new_genre,
+        "rating": new_rating
       }
       karaoke_data["songs"].append(new_song)
 
