@@ -18,10 +18,9 @@ def app():
         st.error("JSONデータを読み込めません。GitHub URLを確認してください.")
 
     # カラオケ曲一覧のページ
-    st.title("カラオケ曲一覧")
+    st.title("曲一覧")
 
-    # カラオケ曲一覧を表示
-    #st.write("カラオケ曲一覧:")
+    # カラオケ曲一覧を表示    
     for song in karaoke_data["songs"]:
         st.write(f"曲名: {song['title']}")
         st.write(f"アーティスト: {song['artist']}")
