@@ -5,10 +5,14 @@ import requests
 import streamlit as st
 import numpy as np
 import pandas as pd
-import sklearn
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
+#import sklearn
+#from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.metrics.pairwise import linear_kernel
 
+def calculate_cosine_similarity(tfidf_matrix):
+    # ユーザーの入力曲と全曲のコサイン類似度を計算
+    similarity_scores = np.dot(tfidf_matrix, tfidf_matrix.T)
+    return similarity_scores
 
 def app():
     # GitHubのJSONファイルのURL (rawファイルを指定)
