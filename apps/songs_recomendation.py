@@ -9,16 +9,28 @@ import pandas as pd
 #from sklearn.feature_extraction.text import TfidfVectorizer
 #from sklearn.metrics.pairwise import linear_kernel
 
-def calculate_cosine_similarity(tfidf_matrix):
-    # ユーザーの入力曲と全曲のコサイン類似度を計算
-    similarity_scores = np.dot(tfidf_matrix, tfidf_matrix.T)
-    return similarity_scores
+def recommend_similar_songs(input_title, songs_df):
+    # 入力曲のインデックスを取得
+    input_idx = songs_df[songs_df['title'] == input_title].index[0]
+
+    # コサイン類似度を計算
+    similarity_scores = []
+    for i in range(len(songs_df)):
+        if i != input_idx:
+            sim_score = np.dot(songs_df.iloc[input_idx, 4:], songs_df.iloc[i, 4:])
+            similarity_scores.append((songs_df.iloc[i, 0], sim_score))
+
+    # 類似度に基づいてソート
+    similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
+
+    # おすすめ曲を取得
+    recommended_songs = [song[0] for song in similarity_scores[:5]]
+    return recommended_songs
+
 
 def app():
-    # GitHubのJSONファイルのURL (rawファイルを指定)
+    # 曲のデータを読み込む
     github_url = "https://raw.githubusercontent.com/Taka0007/song-recommendation-apps/main/data/songs.json"
-
-    # JSONデータをGitHubから読み込む
     response = requests.get(github_url)
     if response.status_code == 200:
         karaoke_data = json.loads(response.text)
@@ -26,16 +38,9 @@ def app():
         st.error("JSONデータを読み込めません。GitHub URLを確認してください.")
         return
 
+    # データフレームを作成
     data = karaoke_data["songs"]
     songs_df = pd.DataFrame(data)
-    songs_df['artist_genre'] = songs_df['artist'] + ' ' + songs_df['genre']
-
-    # TF-IDFベクトル化
-    tfidf_vectorizer = TfidfVectorizer()
-    tfidf_matrix = tfidf_vectorizer.fit_transform(songs_df['artist_genre'])
-
-    # コサイン類似度を計算
-    cosine_sim = calculate_cosine_similarity(tfidf_matrix)
 
     # Streamlitアプリのコード
     st.title("曲のおすすめ")
@@ -44,13 +49,7 @@ def app():
     input_title = st.text_input("おすすめを受けたい曲のタイトル", "曲 1")
 
     if st.button("おすすめを表示"):
-        # 入力された曲のおすすめを取得
-        idx = songs_df[songs_df['title'] == input_title].index[0]
-        sim_scores = list(enumerate(cosine_sim[idx]))
-        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-        sim_scores = sim_scores[1:6]
-        song_indices = [i[0] for i in sim_scores]
-        recommended_songs = songs_df['title'].iloc[song_indices]
-
+        recommended_songs = recommend_similar_songs(input_title, songs_df)
         st.write("おすすめの曲:")
-        st.write(recommended_songs)
+        for song in recommended_songs:
+            st.write(song)
