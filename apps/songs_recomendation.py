@@ -35,7 +35,7 @@ def app():
     tfidf_matrix = tfidf_vectorizer.fit_transform(songs_df['artist_genre'])
 
     # コサイン類似度を計算
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+    cosine_sim = calculate_cosine_similarity(tfidf_matrix)
 
     # Streamlitアプリのコード
     st.title("曲のおすすめ")
