@@ -18,7 +18,7 @@ def app():
   else:
     st.error("JSONデータを読み込めません。GitHub URLを確認してください.")
   
-  st.title("カラオケ曲追加")
+  st.title("曲追加")
 
   # 新しい曲の情報を入力
   new_title = st.text_input("曲名")
